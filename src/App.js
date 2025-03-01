@@ -13,6 +13,8 @@ import SuperAdminDashboard from './components/pages/SuperAdminDashboard';
 import Shops from './components/pages/Shops';
 import AccessDenied from './components/pages/AccessDenied';
 import NotFound from './components/pages/NotFound';
+import CreateShop from './components/pages/CreateShop';
+import AdminDashboard from './components/pages/AdminDashboard';
 
 function App() {
 
@@ -26,6 +28,9 @@ function App() {
     if(isAuth){
       if(currentUser.role==="superadmin"){
         return <SuperAdminDashboard/>
+      }
+      else if(currentUser.role==="admin"){
+        return <AdminDashboard/>
       }
       else{
         return <Home/>
@@ -46,6 +51,7 @@ function App() {
         <Route path='/register' element={isAuth?<Home/>:<Register/>} />
 
         <Route path='/shops' element={currentUser.role==="superadmin"?<Shops/>:<AccessDenied/>} />
+        <Route path='/create-shop' element={currentUser.role==="superadmin"?<CreateShop/>:<AccessDenied/>} />
 
         <Route path="*" element={<NotFound/>} />
       </Routes>

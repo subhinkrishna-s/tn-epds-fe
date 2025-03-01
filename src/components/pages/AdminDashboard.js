@@ -2,7 +2,7 @@ import React from 'react'
 import ShopImg from '../../assets/add-to-cart.svg'
 import UserImg from '../../assets/personal-info.svg'
 
-function SuperAdminDashboard() {
+function AdminDashboard() {
 
     const Cards = [
         {
@@ -18,8 +18,8 @@ function SuperAdminDashboard() {
     ]
 
   return (
-    <div className='bg-light py-5' style={{minHeight: '90vh'}}>
-        <h2 className='my-3 mb-5 text-primary text-center'>Super Admin Dashboard</h2>
+    <div className='bg-light py-5' style={{minHeight: '80vh'}}>
+        <h2 className='my-3 mb-5 text-primary text-center'>Admin Dashboard</h2>
         <div className='d-flex flex-wrap justify-content-center align-items-center gap-2'>
         {
             Cards.map((card, i)=>(
@@ -31,11 +31,8 @@ function SuperAdminDashboard() {
             ))
         }
         </div>
-        <div className='py-5'>
-            <h4 className='text-center'>View Alerts</h4>
-        </div>
     </div>
   )
 }
 
-export default SuperAdminDashboard
+export default AdminDashboard

@@ -1,4 +1,10 @@
 
+@media (max-width: 586px){
+    .lg-col{
+        display: none;
+    }
+}
+
 @media (max-width: 874px){
     .lg-menu{
         display: none !important;
