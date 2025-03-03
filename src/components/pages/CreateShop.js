@@ -47,9 +47,37 @@ const CreateShop = () => {
   };
 
   const handleSubmit = async (e) => {
+    
     e.preventDefault();
+
+    // Validate required fields
+    if (!shopName.trim() || !address.trim() || !fullname.trim() || !email.trim() || !contact.trim() || !password.trim()) {
+      setMessage("Please fill out all required fields.");
+      return;
+    }
+    
+    // Validate that at least one item is added
+    if (items.length === 0) {
+      setMessage("Please add at least one product.");
+      return;
+    }
+    
+    // Validate each item
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      if (!item.product) {
+        setMessage(`Please select a product for item ${i + 1}.`);
+        return;
+      }
+      if (item.quantity === "" || isNaN(item.quantity) || item.quantity < 0) {
+        setMessage(`Please provide a valid quantity for item ${i + 1}.`);
+        return;
+      }
+    }
+    
     setLoading(true);
     setMessage('');
+    
     
     const payload = { shopName, address, items, fullname, email, contact, password };
 

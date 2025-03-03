@@ -142,7 +142,7 @@ function Shops() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5" className="text-center">No shops found.</td>
+                  <td colSpan="6" className="text-center">No shops found.</td>
                 </tr>
               )}
             </tbody>

@@ -44,6 +44,7 @@ const DataContext = ({children}) => {
             if(data.success){
                 setIsAuth(false)
                 setCurrentUser({})
+                window.location.href="/"
             }
         })
         .catch(err=>{
