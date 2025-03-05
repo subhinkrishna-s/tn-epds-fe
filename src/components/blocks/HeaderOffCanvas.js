@@ -1,22 +1,71 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import * as bootstrap from 'bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { DContext } from '../../context/Datacontext'
 
 function HeaderOffcanvas() {
 
-    const {isAuth, handleLogout} = useContext(DContext)
+    const {isAuth, handleLogout, currentUser} = useContext(DContext)
     const navPage = useNavigate()
 
-    const navItems = [
-        { label: "Home", path: "/", icon: "bi bi-house" },
-        { label: "About Us", path: "/about-us", icon: "bi bi-info-circle" },
-        { label: "Services", path: "/services", icon: "bi bi-gear" },
-        { label: "Products", path: "/products", icon: "bi bi-box" },
-        { label: "Projects", path: "/projects", icon: "bi bi-folder" },
-        { label: "Terms & Condition", path: "/terms-condition", icon: "bi bi-file-earmark-text" },
-        { label: "Privacy & Policy", path: "/privacy-policy", icon: "bi bi-shield-lock" }
-    ];
+    const [navItems, setNavItems] = useState([
+        {
+            label: "Home",
+            path: "/",
+            icon: "bi bi-house"
+        }
+    ])
+
+    useEffect(()=>{
+        if(currentUser){
+            if(currentUser.role==="superadmin"){
+                setNavItems([
+                    {
+                        label: "Home",
+                        path: "/"
+                    },
+                    {
+                        label: "Shops",
+                        path: "/shops"
+                    },
+                    {
+                        label: "Purchases",
+                        path: "/purchases"
+                    },
+                    {
+                        label: "Alerts",
+                        path: "/alerts"
+                    }
+                ])
+            }
+            else if(currentUser.role==="admin"){
+                setNavItems([
+                    {
+                        label: "Home",
+                        path: "/"
+                    },
+                    {
+                        label: "Create User",
+                        path: "/create-user"
+                    },
+                    {
+                        label: "Purchases",
+                        path: "/purchases"
+                    }
+                ])
+            }
+        }
+    }, [currentUser])
+
+    // [
+    //     { label: "Home", path: "/", icon: "bi bi-house" },
+    //     { label: "About Us", path: "/about-us", icon: "bi bi-info-circle" },
+    //     { label: "Services", path: "/services", icon: "bi bi-gear" },
+    //     { label: "Products", path: "/products", icon: "bi bi-box" },
+    //     { label: "Projects", path: "/projects", icon: "bi bi-folder" },
+    //     { label: "Terms & Condition", path: "/terms-condition", icon: "bi bi-file-earmark-text" },
+    //     { label: "Privacy & Policy", path: "/privacy-policy", icon: "bi bi-shield-lock" }
+    // ];
 
 
     const handleNavCollapse = (path) => {
@@ -50,7 +99,7 @@ function HeaderOffcanvas() {
                         {
                             navItems.map((item, index) => (
                                 <li key={index} className="p-2 my-1" role="button" onClick={() => handleNavCollapse(item.path)}>
-                                    <i className={item.icon} style={{ marginRight: "8px" }}></i>
+                                    {/* <i className={item.icon} style={{ marginRight: "8px" }}></i> */}
                                     {item.label}
                                 </li>
                             ))

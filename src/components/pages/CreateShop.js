@@ -17,7 +17,7 @@ const CreateShop = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   
-  const allowedProducts = ["wheat", "sugar", "oil"];
+  const allowedProducts = ["rice", "wheat", "kerosene"];
 
   // Handle dynamic item changes
   const handleItemChange = (index, e) => {

@@ -1,10 +1,12 @@
 import React, {useState, useContext} from 'react'
 import { DContext } from '../../context/Datacontext'
 import LoginImg from '../../assets/Login.svg'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
 
     const {setIsAuth, setCurrentUser, BeURL} = useContext(DContext)
+    const navPage = useNavigate()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -29,9 +31,7 @@ const Login = () => {
                 if(data.success){
                     setIsAuth(true)
                     setCurrentUser(data.user)
-                    setEmail('')
-                    setPassword('')
-                    window.location.href="/"
+                    navPage('/')
                 }else{
                     alert(data.message)
                 }

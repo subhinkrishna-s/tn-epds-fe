@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { DContext } from '../../context/Datacontext'
 
@@ -7,27 +7,60 @@ function Header() {
     const location = useLocation()
     const navPage = useNavigate()
 
+    const [menuItems, setMenuItems] = useState([
+        {
+            title: "Home",
+            path: "/"
+        }
+    ])
+
     const [currentPath, setCurrentPath] = React.useState(location.pathname)
-    const {isAuth, handleLogout} = useContext(DContext)
+    const {isAuth, handleLogout, currentUser} = useContext(DContext)
 
     useEffect(()=>{
         setCurrentPath(location.pathname)
     })
 
-    const menuItems = [
-        {
-            title: "Home",
-            path: "/"
-        },
-        {
-            title: "services",
-            path: "/services"
-        },
-        {
-            title: "about",
-            path: "/about-us"
+    useEffect(()=>{
+        if(currentUser){
+            if(currentUser.role==="superadmin"){
+                setMenuItems([
+                    {
+                        title: "Home",
+                        path: "/"
+                    },
+                    {
+                        title: "Shops",
+                        path: "/shops"
+                    },
+                    {
+                        title: "Purchases",
+                        path: "/purchases"
+                    },
+                    {
+                        title: "Alerts",
+                        path: "/alerts"
+                    }
+                ])
+            }
+            else if(currentUser.role==="admin"){
+                setMenuItems([
+                    {
+                        title: "Home",
+                        path: "/"
+                    },
+                    {
+                        title: "Create User",
+                        path: "/create-user"
+                    },
+                    {
+                        title: "Purchases",
+                        path: "/purchases"
+                    }
+                ])
+            }
         }
-    ]
+    }, [currentUser])
 
   return (
     <header className='px-3 py-2 d-flex justify-content-between align-items-center gap-3'>

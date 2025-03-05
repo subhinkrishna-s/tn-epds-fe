@@ -15,6 +15,12 @@ import AccessDenied from './components/pages/AccessDenied';
 import NotFound from './components/pages/NotFound';
 import CreateShop from './components/pages/CreateShop';
 import AdminDashboard from './components/pages/AdminDashboard';
+import UpdateShop from './components/pages/UpdateShop';
+import ViewShop from './components/pages/ViewShop';
+import Alerts from './components/pages/Alerts';
+import CreateUser from './components/pages/CreateUser';
+import Purchases from './components/pages/Purchases';
+import Test from './components/pages/Test'
 
 function App() {
 
@@ -51,7 +57,14 @@ function App() {
         <Route path='/register' element={isAuth?<Home/>:<Register/>} />
 
         <Route path='/shops' element={currentUser.role==="superadmin"?<Shops/>:<AccessDenied/>} />
+        <Route path='/shop/:id' element={currentUser.role==="superadmin"?<ViewShop/>:<AccessDenied/>} />
+        <Route path='/update-shop/:id' element={currentUser.role==="superadmin"?<UpdateShop/>:<AccessDenied/>} />
         <Route path='/create-shop' element={currentUser.role==="superadmin"?<CreateShop/>:<AccessDenied/>} />
+
+        <Route path='/alerts' element={currentUser.role==="superadmin"?<Alerts/>:<AccessDenied/>} />
+        <Route path='/purchases' element={(currentUser.role==="superadmin" || currentUser.role==="admin")?<Purchases/>:<AccessDenied/>} />
+
+        <Route path='/create-user' element={(currentUser.role==="superadmin" || currentUser.role==="admin")?<CreateUser/>:<AccessDenied/>} />
 
         <Route path="*" element={<NotFound/>} />
       </Routes>
