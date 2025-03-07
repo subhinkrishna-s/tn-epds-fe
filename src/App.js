@@ -20,7 +20,6 @@ import ViewShop from './components/pages/ViewShop';
 import Alerts from './components/pages/Alerts';
 import CreateUser from './components/pages/CreateUser';
 import Purchases from './components/pages/Purchases';
-import Test from './components/pages/Test'
 
 function App() {
 
